@@ -137,6 +137,16 @@ Expected: the final line reads `OK` (all tests passed) or `FAILED` (one or more 
 
 ## Experiments
 
+> # ⚠️ READ THIS BEFORE RUNNING ANY EXPERIMENT
+>
+> **You are NOT expected to run every option — pick ONE per claim based on your time and hardware.**
+>
+> - **Claim #1** offers three options (smoke test → spot check → full benchmark), ordered from fastest to slowest.
+> - **Claim #2** offers two options (inspect pre-computed outputs, or re-run the tool).
+> - **Claim #3** has a single spot check (CPU or GPU variant).
+> - **Measured runtimes on different hardware are listed under each option** — use them to choose what fits your machine.
+> - Verification time ranges from **~4–20 minutes** (smoke test / spot check / inspect outputs) up to **~90 hours** (full reproduction on CPU-only hardware).
+> - On **CPU-only machines**, prefer the fastest option or inspect pre-computed results — full runs may take **multiple days**.
 
 ### Claim #1 — AnonShield (`standalone`) achieves ~3×–~17× speedup over v2.0 per file on D1 (GPU); ≥3,532× (GPU) / ≥535× (CPU) at D3 scale
 
