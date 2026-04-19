@@ -1,6 +1,6 @@
 # AnonShield: Scalable On-Premise Pseudonymization for CSIRT Network Vulnerability Data
 
-AnonShield is a high-throughput, on-premise pseudonymization system for **network vulnerability scan reports** (e.g. OpenVAS, Tenable) used by Computer Security Incident Response Teams (CSIRTs). These reports embed network-specific identifiers — IP addresses, hostnames, TLS certificates, and service fingerprints — that collectively map an organization's network topology and attack surface, raising compliance challenges under GDPR, LGPD, and internal data governance policies. AnonShield combines GPU-accelerated NER, an LRU entity cache, streaming processors, and a schema-aware configuration mechanism to replace such identifiers with cryptographically secure, deterministic pseudonyms (HMAC-SHA256), preserving referential integrity across documents while enabling compliant data sharing. Evaluated on datasets up to 550 MB (70,951 vulnerability records), it reduces processing time from over 92 hours to under 10 minutes (up to ~738× speedup over v2.0) and achieves up to F1 = 94.2%, Recall = 96.7% with the `filtered`/`hybrid` strategies — showing that scalable pseudonymization of network vulnerability data is feasible without sacrificing analytical utility.
+AnonShield is a high-throughput, on-premise pseudonymization system for **network vulnerability scan reports** (e.g. OpenVAS, Tenable) used by Computer Security Incident Response Teams (CSIRTs). These reports embed network-specific identifiers — IP addresses, hostnames, TLS certificates, and service fingerprints — that collectively map an organization's network topology and attack surface, raising compliance challenges under GDPR, LGPD, and internal data governance policies. AnonShield combines GPU-accelerated NER, an LRU entity cache, streaming processors, and a schema-aware configuration mechanism to replace such identifiers with cryptographically secure, deterministic pseudonyms (HMAC-SHA256), preserving referential integrity across documents while enabling compliant data sharing. Evaluated on datasets up to 550 MB (70,951 vulnerability records), it reduces processing time from over 92 hours to under 10 minutes (up to ~738× speedup over v2.0) and achieves up to F1 = 94.2%, Recall = 96.4% with the `filtered`/`hybrid` strategies — showing that scalable pseudonymization of network vulnerability data is feasible without sacrificing analytical utility.
 
 > **Paper:** *AnonShield: Scalable On-Premise Pseudonymization for CSIRT Network Vulnerability Data* — SBRC 2026 Salão de Ferramentas.
 
@@ -218,11 +218,11 @@ The stored `benchmark_results.csv` files under [`paper_data/results_paper/`](pap
 
 ---
 
-### Claim #2 — `filtered` and `hybrid` strategies achieve F1 = 94.2%, Recall = 96.7%
+### Claim #2 — `filtered` and `hybrid` strategies achieve F1 = 94.2%, Recall = 96.4%
 
 **Paper reference:** Accuracy evaluation section.
 
-**What this claim asserts:** On a stratified sample of 67 OpenVAS vulnerability records annotated by three security specialists, the `filtered` and `hybrid` strategies achieve F1 = 94.2% and Recall = 96.7%. Annotation was performed by the paper authors and is **not expected to be reproduced by evaluators** — it required manual expert judgment across 13 entity types.
+**What this claim asserts:** On a stratified sample of 67 OpenVAS vulnerability records annotated by three security specialists, the `filtered` and `hybrid` strategies achieve F1 = 94.2% and Recall = 96.4%. Annotation was performed by the paper authors and is **not expected to be reproduced by evaluators** — it required manual expert judgment across 13 entity types.
 
 **What evaluators can verify:**
 1. **Inspect the pre-computed annotated outputs** directly (no re-running required):
@@ -256,10 +256,10 @@ Tester — server A (2× Intel Xeon E5-2650, CPU-only): command completed in **1
 
 | Strategy | TP | FP | FN | Precision | Recall | F1 |
 |---|---|---|---|---|---|---|
-| `filtered` | 724 | 64 | 25 | 91.9% | **96.7%** | **94.2%** |
-| `hybrid` | 724 | 64 | 25 | 91.9% | **96.7%** | **94.2%** |
-| `standalone` | 739 | 102 | 43 | 87.9% | 94.5% | 91.1% |
-| `presidio` | 724 | 287 | 25 | 71.6% | 96.7% | 82.3% |
+| `filtered` | 733 | 63 | 27 | **92.1%** | **96.4%** | **94.2%** |
+| `hybrid` | 733 | 63 | 27 | **92.1%** | **96.4%** | **94.2%** |
+| `standalone` | 730 | 66 | 30 | 91.7% | 96.1% | 93.8% |
+| `presidio` | 733 | 286 | 27 | 71.9% | 96.4% | 82.4% |
 
 > Annotation methodology and XLSX format details: [`paper_data/evaluation/EVALUATION_DATA.md`](paper_data/evaluation/EVALUATION_DATA.md) · [`ANNOTATION_MANUAL.md`](paper_data/evaluation/ANNOTATION_MANUAL.md)
 
