@@ -879,7 +879,8 @@ class BenchmarkRunner:
         entities_to_preserve: Optional[str] = None,
         anonymization_config: Optional[str] = None,
         cache_size: Optional[int] = None,
-        cleanup_outputs: bool = False
+        cleanup_outputs: bool = False,
+        slug_length: int = 8
     ):
         self.config = config
         self.output_dir = output_dir
@@ -891,6 +892,7 @@ class BenchmarkRunner:
         self.anonymization_config = anonymization_config
         self.cache_size = cache_size
         self.cleanup_outputs = cleanup_outputs
+        self.slug_length = slug_length
 
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.log_dir.mkdir(parents=True, exist_ok=True)
@@ -1065,6 +1067,9 @@ class BenchmarkRunner:
             if self.entities_to_preserve:
                 cmd.extend(["--preserve-entities", self.entities_to_preserve])
 
+            # Add slug length (paper used 8)
+            cmd.extend(["--slug-length", str(self.slug_length)])
+
             # Add anonymization config if specified
             if self.anonymization_config:
                 cmd.extend(["--anonymization-config", self.anonymization_config])
@@ -1154,7 +1159,8 @@ class DirectoryBenchmarkRunner:
         entities_to_preserve: Optional[str] = None,
         anonymization_config: Optional[str] = None,
         cache_size: Optional[int] = None,
-        cleanup_outputs: bool = False
+        cleanup_outputs: bool = False,
+        slug_length: int = 8
     ):
         self.config = config
         self.output_dir = output_dir
@@ -1167,6 +1173,7 @@ class DirectoryBenchmarkRunner:
         self.anonymization_config = anonymization_config
         self.cache_size = cache_size
         self.cleanup_outputs = cleanup_outputs
+        self.slug_length = slug_length
 
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.log_dir.mkdir(parents=True, exist_ok=True)
@@ -1498,6 +1505,9 @@ class DirectoryBenchmarkRunner:
             if self.entities_to_preserve:
                 cmd.extend(["--preserve-entities", self.entities_to_preserve])
 
+            # Add slug length (paper used 8)
+            cmd.extend(["--slug-length", str(self.slug_length)])
+
             # Add anonymization config if specified
             if self.anonymization_config:
                 cmd.extend(["--anonymization-config", self.anonymization_config])
@@ -1809,6 +1819,7 @@ class BenchmarkOrchestrator:
                 transformer_model=self.args.transformer_model,
                 db_dir=self.args.db_dir,
                 entities_to_preserve=self.args.entities_to_preserve,
+                slug_length=self.args.slug_length,
                 anonymization_config=self.args.anonymization_config,
                 cache_size=self.args.cache_size,
                 cleanup_outputs=self.args.cleanup_outputs
@@ -1946,6 +1957,7 @@ class BenchmarkOrchestrator:
                         transformer_model=self.args.transformer_model,
                         db_dir=self.args.db_dir,
                         entities_to_preserve=self.args.entities_to_preserve,
+                        slug_length=self.args.slug_length,
                         anonymization_config=self.args.anonymization_config,
                         cache_size=self.args.cache_size,
                         cleanup_outputs=self.args.cleanup_outputs
@@ -2066,6 +2078,7 @@ class BenchmarkOrchestrator:
                                 transformer_model=self.args.transformer_model,
                                 db_dir=self.args.db_dir,
                                 entities_to_preserve=self.args.entities_to_preserve,
+                                slug_length=self.args.slug_length,
                                 anonymization_config=self.args.anonymization_config,
                                 cache_size=self.args.cache_size,
                                 cleanup_outputs=self.args.cleanup_outputs
@@ -3148,6 +3161,9 @@ Examples:
                             help="Path to JSON file with advanced anonymization rules for structured files. "
                                  "Defines force_anonymize, fields_to_anonymize, and fields_to_exclude. "
                                  "Example: 'benchmark/openvas_anonymization_config.json'")
+    bench_group.add_argument("--slug-length", type=int, default=8,
+                            help="Length of the anonymized slug in hex chars (0-64). "
+                                 "Paper used 8. Default: 8.")
     bench_group.add_argument("--max-cache-size", type=int, dest="cache_size",
                             help="Maximum cache size for anonymization mappings (AnonShield only). "
                                  "Controls the LRU cache size for consistent entity mapping. "
