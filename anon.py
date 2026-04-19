@@ -557,7 +557,7 @@ def main():
     
     requested_preserve = [e.strip().upper() for e in args.preserve_entities.split(',') if e and e.strip()]
     logging.debug(f"Requested entities to preserve: {requested_preserve}")
-    supported_entities_upper = {s.upper() for s in get_supported_entities()}
+    supported_entities_upper = {s.upper() for s in get_supported_entities(args.anonymization_strategy, args.transformer_model)}
     unknown_entities = [e for e in requested_preserve if e not in supported_entities_upper]
     if unknown_entities:
         logging.warning(f"Unsupported entities will be ignored: {', '.join(unknown_entities)}")
