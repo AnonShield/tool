@@ -110,10 +110,10 @@ The annotated counts are recorded in the `.xlsx` files in each version/strategy 
 
 | Version / Strategy | TP | FP | FN | Precision | Recall | F1 |
 |---|---|---|---|---|---|---|
-| 3.0\_presidio | 724 | 287 | 25 | 71.6% | 96.7% | 82.3% |
-| 3.0\_filtered | 724 | 64 | 25 | **91.9%** | **96.7%** | **94.2%** |
-| 3.0\_hybrid | 724 | 64 | 25 | **91.9%** | **96.7%** | **94.2%** |
-| 3.0\_standalone | 739 | 102 | 43 | 87.9% | 94.5% | 91.1% |
+| 3.0\_presidio | 733 | 286 | 27 | 71.9% | 96.4% | 82.4% |
+| 3.0\_filtered | 733 | 63 | 27 | **92.1%** | **96.4%** | **94.2%** |
+| 3.0\_hybrid | 733 | 63 | 27 | **92.1%** | **96.4%** | **94.2%** |
+| 3.0\_standalone | 730 | 66 | 30 | 91.7% | 96.1% | 93.8% |
 
 Model used: `attack-vector/SecureModernBERT-NER`. Preservation list applied: `TOOL`, `PLATFORM`, `FILE_PATH`, `THREAT_ACTOR`, `SERVICE`, `REGISTRY_KEY`, `CAMPAIGN`, `MALWARE`, `SECTOR`. Config: `paper_data/configs/anonymization_config_openvas.json`.
 
