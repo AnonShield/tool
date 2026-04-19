@@ -98,7 +98,7 @@ class StandaloneStrategy(StandaloneAnonymizationStrategy):
                 "ner",
                 model=self.transformer_model,
                 tokenizer=self.transformer_model,
-                aggregation_strategy="simple",
+                aggregation_strategy="max",
                 device=device
             )
             self.logger.info(f"Transformer model loaded successfully on {'GPU' if device >= 0 else 'CPU'}")
