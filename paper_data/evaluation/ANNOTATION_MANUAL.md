@@ -206,16 +206,17 @@ In this case: 3 distinct entities → **3 TP** (SHA-1, SHA-256, serial).
 
 ## 5. Strategy-Specific Behavior That Influenced Annotation
 
-### 5.1 Standalone — lack of overlap resolution and entity expansion mechanisms
+### 5.1 Standalone — URL coverage gap on custom TLDs
 
-Unlike Presidio (used in the filtered, hybrid, and presidio strategies), standalone lacks a robust mechanism to resolve overlaps between detections and to expand entity spans to their natural boundaries (e.g., the full URL, the complete IP address). This produced two behaviors observed during annotation:
+Unlike the Presidio-based strategies (filtered, hybrid, presidio), which benefit from Presidio's built-in URL recognizer in addition to the shared custom regex set, standalone relies only on the custom URL regex (which uses a TLD whitelist) and the transformer NER. URLs with custom or non-public TLDs (e.g., `.trabalho_vulnnet` from the testbed) are not matched by the custom regex and were sometimes left intact by standalone. Example:
 
-- **Duplication of pseudonyms** for the same entity, when different recognizers detected overlapping spans without consolidation (see Section 4.1).
-- **Fragmentation of composite entities:** without span expansion, standalone sometimes anonymized only part of a URL or hostname, leaving the remainder exposed. Example:
   ```
-  http://metasploitable[URL_x].trabalho_vulnnet/phpmyadmin/
+  Original : http://php70.trabalho_vulnnet/
+  Standalone: http://php70.trabalho_vulnnet/      (unchanged → FN)
+  Filtered  : [URL_x]abalho_vulnnet/              (partial → 1 TP + 1 FN per §3)
   ```
-  Instead of anonymizing the full URL, as the other strategies did. The annotators applied the partial anonymization rule.
+
+  The annotators recorded these cases with the standard rules: full miss → 1 FN; partial → 1 TP + 1 FN.
 
 ### 5.2 Presidio — whole-word detection
 
