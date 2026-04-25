@@ -4,8 +4,6 @@ AnonShield is a high-throughput, on-premise pseudonymization system for **networ
 
 > **Paper:** *AnonShield: Scalable On-Premise Pseudonymization for CSIRT Network Vulnerability Data* — SBRC 2026 Salão de Ferramentas.
 
-> **Online demo:** A web demo is available at [anonshield.org](https://anonshield.org/) for illustrative use of the tool. **The demo is not part of the paper's scope** and is not used to support any of its claims or experiments — it exists only as a convenience showcase.
-
 > **Note:** In parts of this repository — including benchmark scripts, CLI flags (`--versions 3.0`), result directory names, and internal logs — AnonShield is referred to as **v3.0**. This reflects its versioning relative to the predecessor tools AnonLFI v1.0 and v2.0, which are used as baselines in the benchmark comparisons.
 
 ---
