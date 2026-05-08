@@ -6,40 +6,23 @@ file formats and tool versions.
 
 ---
 
-## Quick Start (after cloning)
-
-**Only prerequisite: [`uv`](https://docs.astral.sh/uv/)**
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-> Python 3.x from the system is sufficient. No other installs needed.
-
-**Run the smoke test (~5–20 min):**
-```bash
-./paper_data/test_minimal/run_tests.sh          # GPU machine
-./paper_data/test_minimal/run_tests.sh --cpu-only   # CPU-only machine
-```
-
-The script automatically:
-1. Creates `.venv`, `anonlfi_1.0/.venv`, `anonlfi_2.0/.venv` via `uv sync`
-2. Generates the D1C dataset from D1 (CSV→XLSX, TXT→DOCX, XML→JSON, PDF→images)
-3. Runs benchmarks on all 3 datasets (D1, D1C, D3)
-4. Generates analysis charts and statistics
-
-**Extract D3 dataset (bundled as zip files in git — ~80 MB compressed):**
-```bash
-./paper_data/scripts/extract_datasets.sh   # extracts D3 and removes the zips
-```
-
-**Full paper reproduction (public datasets — D1 + D1C + D3, ~103 h GPU):**
-```bash
-./paper_data/scripts/reproduce_all_runs.sh --skip-d2
-```
-
-**D3-only reproduction (~6.3 h GPU):**
-```bash
-./paper_data/scripts/reproduce_all_runs.sh --skip-d1 --skip-d2
-```
+> **Reading guide.** Two documents cover paper reproduction; use them for
+> different purposes:
+>
+> - **[`README.md`](../README.md) — start here.** Per-claim reproduction guide
+>   (Claim #1/#2/#3) with the exact commands, expected runtimes, and pre-computed
+>   reference outputs. This is what artifact evaluators should follow first.
+> - **This file (`EXPERIMENTS.md`) — technical reference.** Full dataset
+>   descriptions (D1/D1C/D2/D3), benchmark schema (CSV columns), version and
+>   strategy matrix, every reproduction mode (`reproduce_all_runs.sh` flags),
+>   and per-dataset stored runtimes. Read this when you need details that go
+>   beyond the per-claim flow in the README.
+>
+> The reproduction commands themselves live in [`paper_data/scripts/`](scripts/)
+> (`extract_datasets.sh`, `spot_check_claim1.sh`, `spot_check_claim3.sh`,
+> `reproduce_all_runs.sh`, `analyze_all.sh`) and [`paper_data/test_minimal/`](test_minimal/)
+> (`run_tests.sh`). Both documents reference the same scripts — they are the
+> single source of truth.
 
 ---
 
@@ -434,34 +417,6 @@ Expected output: `13/13` steps pass (1 D1C conversion + 12 benchmark runs), `10/
 
 ---
 
-### Step 4 — Generate D1C from D1 (converted formats dataset)
-
-D1C (~1.5 GB, dominated by PDF-images) is **not** stored in git. Only D1 is
-tracked (~88 MB). Run this script once to generate D1C before benchmarking:
-
-```bash
-# Generate all 4 formats (XLSX, DOCX, JSON, PDF-images) — ~20–60 min
-python3 paper_data/scripts/convert_d1_to_d1c.py
-
-# Only specific formats (faster if you don't need PDF-images)
-python3 paper_data/scripts/convert_d1_to_d1c.py --formats xlsx docx json
-
-# Custom paths
-python3 paper_data/scripts/convert_d1_to_d1c.py \
-    --source paper_data/datasets/D1_openvas \
-    --output paper_data/datasets/D1C_converted \
-    --workers 4
-
-# Dry run — print what would be converted
-python3 paper_data/scripts/convert_d1_to_d1c.py --dry-run
-```
-
-The output is written to `paper_data/datasets/D1C_converted/` (git-ignored) with
-the exact same structure and filenames as the original dataset used in the paper.
-
-> **DPI note:** Default is 150 DPI (matching the original). Use `--dpi 200` for
-> higher quality OCR testing at the cost of ~2× larger PDF-image files.
-
 ### Step 3 — Run the full benchmark reproduction
 
 Reproduces all runs from the paper using the complete datasets. Results are
@@ -524,6 +479,41 @@ written to `paper_data/results_paper/`, matching the archived structure exactly.
 # Dry run — print all commands without executing
 ./paper_data/scripts/reproduce_all_runs.sh --dry-run
 ```
+
+---
+
+### Step 4 — Generate D1C from D1 (optional manual pre-generation)
+
+`reproduce_all_runs.sh` already runs the D1C conversion automatically when D1C
+is missing (see Step 3). Use this section only if you want to pre-generate D1C
+explicitly — for example, to inspect the converted files before running the
+benchmark, or to convert only a subset of formats.
+
+D1C (~1.5 GB, dominated by PDF-images) is **not** stored in git. Only D1 is
+tracked (~88 MB).
+
+```bash
+# Generate all 4 formats (XLSX, DOCX, JSON, PDF-images) — ~20–60 min
+python3 paper_data/scripts/convert_d1_to_d1c.py
+
+# Only specific formats (faster if you don't need PDF-images)
+python3 paper_data/scripts/convert_d1_to_d1c.py --formats xlsx docx json
+
+# Custom paths
+python3 paper_data/scripts/convert_d1_to_d1c.py \
+    --source paper_data/datasets/D1_openvas \
+    --output paper_data/datasets/D1C_converted \
+    --workers 4
+
+# Dry run — print what would be converted
+python3 paper_data/scripts/convert_d1_to_d1c.py --dry-run
+```
+
+The output is written to `paper_data/datasets/D1C_converted/` (git-ignored) with
+the exact same structure and filenames as the original dataset used in the paper.
+
+> **DPI note:** Default is 150 DPI (matching the original). Use `--dpi 200` for
+> higher quality OCR testing at the cost of ~2× larger PDF-image files.
 
 ---
 
