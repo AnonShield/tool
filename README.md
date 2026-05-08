@@ -6,6 +6,8 @@ AnonShield is a high-throughput, on-premise pseudonymization system for **networ
 
 > **Note:** In parts of this repository — including benchmark scripts, CLI flags (`--versions 3.0`), result directory names, and internal logs — AnonShield is referred to as **v3.0**. This reflects its versioning relative to the predecessor tools AnonLFI v1.0 and v2.0, which are used as baselines in the benchmark comparisons.
 
+> **For SBRC 2026 artifact reviewers (SeloD/F/S/R).** This README is the single, self-contained guide for evaluation: follow it end-to-end and you will reach all four seals. Every other Markdown file in the repository (`benchmark/BENCHMARK.md`, `paper_data/EXPERIMENTS.md`, `docs/`, `CONTRIBUTING.md`, `CHANGELOG.md`, etc.) is **complementary documentation for users and developers** and is **not required for the artifact review**. You do not need to read or follow them to grant the seals.
+
 ---
 
 ## README Structure
