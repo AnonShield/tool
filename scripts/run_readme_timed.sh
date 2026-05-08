@@ -67,6 +67,12 @@ if command -v tesseract >/dev/null 2>&1; then
   HAS_TESSERACT=1
 fi
 
+# GNU /usr/bin/time is required (the shell builtin does not support -f).
+if ! [ -x /usr/bin/time ]; then
+  echo "[erro] /usr/bin/time não encontrado. Instale com: sudo apt install time (Ubuntu/Debian), sudo dnf install time (Fedora/RHEL), brew install gnu-time (macOS)" >&2
+  exit 2
+fi
+
 capture_hardware() {
   {
     echo "timestamp=$(date -Iseconds)"
