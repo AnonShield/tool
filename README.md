@@ -6,6 +6,8 @@ AnonShield is a high-throughput, on-premise pseudonymization system for **networ
 
 > **Note:** In parts of this repository — including benchmark scripts, CLI flags (`--versions 3.0`), result directory names, and internal logs — AnonShield is referred to as **v3.0**. This reflects its versioning relative to the predecessor tools AnonLFI v1.0 and v2.0, which are used as baselines in the benchmark comparisons.
 
+> **For SBRC 2026 artifact reviewers (SeloD/F/S/R).** This README is the single, self-contained guide for evaluation: follow it end-to-end and you will reach all four seals. Every other Markdown file in the repository (`benchmark/BENCHMARK.md`, `paper_data/EXPERIMENTS.md`, `docs/`, `CONTRIBUTING.md`, `CHANGELOG.md`, etc.) is **complementary documentation for users and developers** and is **not required for the artifact review**. You do not need to read or follow them to grant the seals.
+
 ---
 
 ## README Structure
@@ -54,6 +56,15 @@ The seals considered are: **Available (SeloD)**, **Functional (SeloF)**, **Susta
 - Python 3.12 + [`uv`](https://astral.sh/uv) — all packages pinned in [`pyproject.toml`](pyproject.toml) / [`uv.lock`](uv.lock)
 - Key packages: `presidio-analyzer`, `presidio-anonymizer`, `transformers`, `spacy`, `torch`, `pandas`, `pymupdf`, `pytesseract`, `lxml`, `orjson`, `scipy`, `statsmodels`
 - NER models downloaded automatically on first run and cached in `~/.cache/huggingface/` (~1.5 GB)
+
+**Required for benchmark scripts (paper reproduction):**
+- GNU `time` (not the shell builtin) — used by `benchmark/benchmark.py` and `scripts/run_readme_timed.sh` to collect OS-level metrics (wall clock, CPU, RSS):
+  ```bash
+  sudo apt install time      # Ubuntu/Debian
+  sudo dnf install time      # Fedora/RHEL
+  brew install gnu-time      # macOS
+  ```
+  Verify with `command -v /usr/bin/time` (must return a path, not empty).
 
 **Optional:**
 - Tesseract OCR — required only for OCR-mode tests (PDF/image files):
@@ -136,6 +147,8 @@ Expected: the final line reads `OK` (all tests passed) or `FAILED` (one or more 
 ---
 
 ## Experiments
+
+> **Scope of this section.** All reproduction commands below target the experiments of this paper (AnonShield, internally referred to as v3.0). The `anonlfi_1.0/` and `anonlfi_2.0/` folders contain the previous tools used as comparison baselines in the paper; they are invoked automatically by the benchmark scripts when needed and **do not require any manual interaction from the evaluator**.
 
 > # ⚠️ READ THIS BEFORE RUNNING ANY EXPERIMENT
 >
