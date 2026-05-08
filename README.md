@@ -72,6 +72,13 @@ The seals considered are: **Available (SeloD)**, **Functional (SeloF)**, **Susta
   sudo apt install tesseract-ocr  # Ubuntu/Debian
   ```
 
+- Poppler + `pdf2image` — required only by `scripts/complete_benchmark_workflow.sh` (multi-format dataset conversion: CSV→XLSX, TXT→DOCX, PDF→images). Not used by the per-Claim reproduction in the Experiments section below.
+  ```bash
+  sudo apt install poppler-utils    # Ubuntu/Debian (provides pdftoppm)
+  brew install poppler              # macOS
+  pip install pdf2image             # Python wrapper
+  ```
+
 ---
 
 ## Security Concerns
