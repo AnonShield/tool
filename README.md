@@ -55,6 +55,15 @@ The seals considered are: **Available (SeloD)**, **Functional (SeloF)**, **Susta
 - Key packages: `presidio-analyzer`, `presidio-anonymizer`, `transformers`, `spacy`, `torch`, `pandas`, `pymupdf`, `pytesseract`, `lxml`, `orjson`, `scipy`, `statsmodels`
 - NER models downloaded automatically on first run and cached in `~/.cache/huggingface/` (~1.5 GB)
 
+**Required for benchmark scripts (paper reproduction):**
+- GNU `time` (not the shell builtin) — used by `benchmark/benchmark.py` and `scripts/run_readme_timed.sh` to collect OS-level metrics (wall clock, CPU, RSS):
+  ```bash
+  sudo apt install time      # Ubuntu/Debian
+  sudo dnf install time      # Fedora/RHEL
+  brew install gnu-time      # macOS
+  ```
+  Verify with `command -v /usr/bin/time` (must return a path, not empty).
+
 **Optional:**
 - Tesseract OCR — required only for OCR-mode tests (PDF/image files):
   ```bash
