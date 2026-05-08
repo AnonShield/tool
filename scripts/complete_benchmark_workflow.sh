@@ -57,15 +57,16 @@ check_dependencies() {
     
     # Check system packages
     command -v pdftoppm >/dev/null 2>&1 || missing_deps+=("poppler-utils")
-    
+    [ -x /usr/bin/time ] || missing_deps+=("time (GNU)")
+
     if [ ${#missing_deps[@]} -gt 0 ]; then
         print_error "Missing dependencies: ${missing_deps[*]}"
         echo ""
         echo "Install with:"
         echo "  pip install openpyxl python-docx pdf2image"
-        echo "  sudo apt-get install poppler-utils  # Ubuntu/Debian"
+        echo "  sudo apt-get install poppler-utils time  # Ubuntu/Debian"
         echo "  or"
-        echo "  brew install poppler  # macOS"
+        echo "  brew install poppler gnu-time           # macOS"
         exit 1
     fi
     

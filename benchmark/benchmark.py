@@ -3216,6 +3216,27 @@ Examples:
     return parser
 
 
+def _check_gnu_time() -> None:
+    """Fail early with an actionable message if GNU /usr/bin/time is missing.
+
+    Required by single-file and directory-aggregate benchmark modes (this script
+    wraps every measured run in `/usr/bin/time -v`). The shell builtin `time`
+    does not produce the `-v` output we parse, so we require the GNU binary at
+    a fixed path.
+    """
+    if not os.path.isfile("/usr/bin/time") or not os.access("/usr/bin/time", os.X_OK):
+        print(
+            "[ERROR] GNU /usr/bin/time not found.\n"
+            "        Benchmark modes require it to collect wall-clock, CPU, and RSS metrics.\n"
+            "        Install with:\n"
+            "          sudo apt install time      # Ubuntu/Debian\n"
+            "          sudo dnf install time      # Fedora/RHEL\n"
+            "          brew install gnu-time      # macOS",
+            file=sys.stderr,
+        )
+        sys.exit(2)
+
+
 def main():
     """Main entry point."""
     parser = create_parser()
@@ -3226,6 +3247,11 @@ def main():
         parser.print_help()
         print("\n[ERROR] At least one mode must be specified: --setup, --benchmark, --smoke-test, --calibrate-overhead, or --regression")
         sys.exit(1)
+
+    # Pre-flight: GNU time is required for any mode that wraps runs in /usr/bin/time -v.
+    # --setup alone does not measure, so it is exempt.
+    if args.benchmark or args.smoke_test or args.calibrate_overhead or args.regression:
+        _check_gnu_time()
 
     # Validate --regression requirements
     if args.regression and not args.regression_source and not args.regression_dir:
