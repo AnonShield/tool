@@ -146,6 +146,8 @@ Expected: the final line reads `OK` (all tests passed) or `FAILED` (one or more 
 
 ## Experiments
 
+> **Scope of this section.** All reproduction commands below target the experiments of this paper (AnonShield, internally referred to as v3.0). The `anonlfi_1.0/` and `anonlfi_2.0/` folders contain the previous tools used as comparison baselines in the paper; they are invoked automatically by the benchmark scripts when needed and **do not require any manual interaction from the evaluator**.
+
 > # ⚠️ READ THIS BEFORE RUNNING ANY EXPERIMENT
 >
 > **You are NOT expected to run every option — pick ONE per claim based on your time and hardware.**
