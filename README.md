@@ -1,8 +1,25 @@
 # AnonShield: Scalable On-Premise Pseudonymization for CSIRT Network Vulnerability Data
 
+[![Best Artifact — SBRC 2026](https://img.shields.io/badge/SBRC%202026-Best%20Artifact-gold)](https://doc-artefatos.github.io/sbrc2026/results.html#trabalhos-com-selos-atribu%C3%ADdos)
+[![DOI](https://img.shields.io/badge/DOI-10.5753%2Fsbrc__estendido.2026.23154-blue)](https://doi.org/10.5753/sbrc_estendido.2026.23154)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+
 AnonShield is a high-throughput, on-premise pseudonymization system for **network vulnerability scan reports** (e.g. OpenVAS, Tenable) used by Computer Security Incident Response Teams (CSIRTs). These reports embed network-specific identifiers — IP addresses, hostnames, TLS certificates, and service fingerprints — that collectively map an organization's network topology and attack surface, raising compliance challenges under GDPR, LGPD, and internal data governance policies. AnonShield combines GPU-accelerated NER, an LRU entity cache, streaming processors, and a schema-aware configuration mechanism to replace such identifiers with cryptographically secure, deterministic pseudonyms (HMAC-SHA256), preserving referential integrity across documents while enabling compliant data sharing. Evaluated on datasets up to 550 MB (70,951 vulnerability records), it reduces processing time from over 92 hours to under 10 minutes (up to ~738× speedup over v2.0) and achieves up to F1 = 94.2%, Recall = 96.4% with the `filtered`/`hybrid` strategies — showing that scalable pseudonymization of network vulnerability data is feasible without sacrificing analytical utility.
 
-> **Paper:** *AnonShield: Scalable On-Premise Pseudonymization for CSIRT Network Vulnerability Data* — SBRC 2026 Salão de Ferramentas.
+> **🏆 Best Artifact — SBRC 2026.** AnonShield was selected as the **Best Artifact (Melhor Artefato) of SBRC 2026** by the Artifact Evaluation Committee (CTA), in the Salão de Ferramentas track. It received all four quality seals — Available, Functional, Sustainable, and Reproducible. See the [official results](https://doc-artefatos.github.io/sbrc2026/results.html#trabalhos-com-selos-atribu%C3%ADdos).
+>
+> **Paper:** *AnonShield: Scalable On-Premise Pseudonymization for CSIRT Network Vulnerability Data* — SBRC 2026, Salão de Ferramentas. DOI: [10.5753/sbrc_estendido.2026.23154](https://doi.org/10.5753/sbrc_estendido.2026.23154) · [SOL/SBRC publication](https://sol.sbc.org.br/index.php/sbrc_estendido/article/view/42580). See [How to cite](#citation) below.
+
+<p align="center">
+  <a href="https://doc-artefatos.github.io/sbrc2026/results.html#trabalhos-com-selos-atribu%C3%ADdos">
+    <img src="docs/assets/seals/SBRC25_SF_SeloD.png" alt="Artefatos Disponíveis — Available (SeloD)" width="110">
+    <img src="docs/assets/seals/SBRC25_SF_SeloF.png" alt="Artefatos Funcionais — Functional (SeloF)" width="110">
+    <img src="docs/assets/seals/SBRC25_SF_SeloS.png" alt="Artefatos Sustentáveis — Sustainable (SeloS)" width="110">
+    <img src="docs/assets/seals/SBRC25_SF_SeloR.png" alt="Experimentos Reprodutíveis — Reproducible (SeloR)" width="110">
+  </a>
+</p>
+
+<p align="center"><sub>Official SBRC artifact-evaluation seals awarded to AnonShield (Salão de Ferramentas). Seal artwork by the SBRC Artifact Evaluation Committee.</sub></p>
 
 > **Note:** In parts of this repository — including benchmark scripts, CLI flags (`--versions 3.0`), result directory names, and internal logs — AnonShield is referred to as **v3.0**. This reflects its versioning relative to the predecessor tools AnonLFI v1.0 and v2.0, which are used as baselines in the benchmark comparisons.
 
@@ -21,6 +38,7 @@ AnonShield is a high-throughput, on-premise pseudonymization system for **networ
 | [Installation](#installation) | Step-by-step local setup |
 | [Minimal Test](#minimal-test) | Quick functional verification (~5–10 min) |
 | [Experiments](#experiments) | Reproduction of the three main paper claims |
+| [Citation](#citation) | How to cite AnonShield (BibTeX) |
 | [License](#license) | Licensing information |
 
 ---
@@ -319,6 +337,30 @@ We welcome feedback, questions, and contributions from the community.
 
 * **Bugs & Feature Requests:** Please [open an issue](https://github.com/AnonShield/tool/issues) on our GitHub repository.
 * **Direct Contact & Inquiries:** For institutional questions, partnerships, or to report a security bug directly, reach out to our team at **[anonshield@unipampa.edu.br](mailto:anonshield@unipampa.edu.br)**.
+
+---
+
+## Citation
+
+AnonShield was selected as the **Best Artifact (Melhor Artefato) of SBRC 2026** by the Artifact Evaluation Committee (Salão de Ferramentas) — see the [official results](https://doc-artefatos.github.io/sbrc2026/results.html#trabalhos-com-selos-atribu%C3%ADdos).
+
+If you use AnonShield in your research, please cite the SBRC 2026 paper. A machine-readable [`CITATION.cff`](CITATION.cff) is provided (GitHub renders a **"Cite this repository"** button from it), and the BibTeX entry is also available in [`CITATION.bib`](CITATION.bib):
+
+```bibtex
+@inproceedings{kapelinski2026anonshield,
+  author    = {Cristhian Kapelinski and Douglas Lautert and Beatriz Roland Machado and Diego Kreutz and Isadora Garcia Ferrão},
+  title     = {{AnonShield: Scalable On-Premise Pseudonymization for CSIRT Network Vulnerability Data}},
+  booktitle = {Anais Estendidos do XLIV Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos (SBRC)},
+  year      = {2026},
+  pages     = {1--12},
+  publisher = {SBC},
+  address   = {Porto Alegre, RS, Brasil},
+  issn      = {2177-9384},
+  doi       = {10.5753/sbrc_estendido.2026.23154},
+  url       = {https://sol.sbc.org.br/index.php/sbrc_estendido/article/view/42580},
+  note      = {Best Artifact Award (Melhor Artefato), SBRC 2026 Artifact Evaluation}
+}
+```
 
 ---
 
